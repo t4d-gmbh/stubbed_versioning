@@ -13,8 +13,8 @@ jobs:
     - name: Register desired version
       id: release_version
       run: |
-        echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_ENV
-        echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_ENV
+        echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
+        echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
