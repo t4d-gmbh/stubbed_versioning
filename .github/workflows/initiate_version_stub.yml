@@ -31,5 +31,5 @@ jobs:
           version-release
         team-reviewers:
           admin
-        base: ${{ github.base_ref }}
+        base: main  # NOTE: this should match the branch on which the tag was made
 
