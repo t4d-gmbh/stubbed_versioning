@@ -31,4 +31,5 @@ jobs:
           version-release
         team-reviewers:
           admin
+        base: ${{ github.base_ref }}
 
