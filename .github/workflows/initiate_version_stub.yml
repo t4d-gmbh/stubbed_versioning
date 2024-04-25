@@ -25,11 +25,7 @@ jobs:
       run: |
         wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
         tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
-        git config user.email "actions@github.com"
-        git config user.name "github_actions"
-        git tag -a ${{ needs.increment-tag.outputs.VERSION }} -m 'interim tag for changelog'
         ./git-chglog -o CHANGELOG.md  # update the changelog file
-        git tag -d ${{ needs.increment-tag.outputs.VERSION }}  # remove the tag again
         # - name: Auto-update Changelog
         #   shell: bash
         #   run: |
