@@ -10,7 +10,7 @@ This project contains an exemplary setup for a version release pipeline that ful
 1. Include the released state of the repository in the reference branch
 
 The combination of these requirements leads to a non-trivial version release workflow described below in 
-[#requirements-on-release-worklow](#requirements-on-release-worklow).
+[Requirements on release workflow](#requirements-on-release-workflow).
 
 This repository defines various github actions that lead you through a release workflow which asserts that
 the above defined requirements can be fulfilled.
