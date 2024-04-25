@@ -1,0 +1,14 @@
+name: Prepare version release
+
+on:
+  push:
+    branch:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  pre_release_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: smoke step
+        run: |
+          echo I ran

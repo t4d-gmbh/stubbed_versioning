@@ -45,5 +45,6 @@ jobs:
           The initiating tag was **${{ github.ref_name }}**
 
           Merging this Pull Request will create a release of the version **${{ steps.release_version.outputs.version }}**.
+        labels: |
+          version-release
         base: main  # NOTE: this should match the branch on which the tag was made
-

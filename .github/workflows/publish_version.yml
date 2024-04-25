@@ -1,0 +1,15 @@
+name: Publish a version
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  job_running_if_merged:
+    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Version was released
+
