@@ -6,19 +6,19 @@ This project contains an exemplary setup for a version release pipeline that ful
 1. Use [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) as single source of
    truth for the versioning
 1. Allow to include information about the version in the code-base itself
-1. Allow to run and address resulting issues of designated pre-release tests (and pot. other worklfows)
+1. Allow to run and address resulting issues of designated pre-release tests (and potentially other worklfows)
 1. Include the released state of the repository in the reference branch
 
 The combination of these requirements leads to a non-trivial version release workflow described below in 
 [Requirements on release workflow](#requirements-on-release-workflow).
 
-This repository defines various github actions that lead you through a release workflow which asserts that
+This repository defines various GitHub actions that lead you through a release workflow which asserts that
 the above defined requirements can be fulfilled.
 
 ## The version release pipeline
 
 Assume you want to release a new version, say `1.2.0`, based on HEAD of `main`.
-All you need to do it push the git tag `1.2.0-rc1` to github.
+All you need to do it push the git tag `1.2.0-rc1` to GitHub.
 
 The [initiate_version_stub.yml](.github/workflows/initiate_stub.yml) action
 will be triggered and create a new branch `release-1.2.0`, along with Pull Request to merge this
@@ -35,7 +35,7 @@ by merging it.
 Upon merge the action [publish_version.yml](.github/workflows/publish_version.yml) will create the
 git tag `1.2.0`, so a cleaned version of your initial `1.2.0-rc1` on HEAD of `release-1.2.0`
 and publish a
-[github release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+[GitHub release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 for this tag.
 In doing so it asserts that changes made during the preparation of the release are ported back to
 the reference branch (point **5.** from above).
@@ -53,9 +53,9 @@ To do so:
       git tag -a 2.0.0-rc1 -m 'Trying new things'
       git push --tags
 
-- now give github a minute and then head to the Rull requests of your newly forked repository 
+- now give GitHub a minute and then head to the Pull requests of your newly forked repository 
 - you might add some changes to the newly created branch (`release-2.0.0` if you follow this steps by the letter)
-- merge the Pull request and give github a minute to run the actions
+- merge the Pull request and give GitHub a minute to run the actions
 - you will find that the changes introduced in the `release-2.0.0` branch were merged to `main`
 - when heading to the main URL of the repository you will see a new Release added
 
