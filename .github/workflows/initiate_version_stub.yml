@@ -32,11 +32,16 @@ jobs:
       with:
         branch: ${{ steps.release_version.outputs.version }}
         commit-message: "automated-update of changelog"
+        token: ${{ secrets.GITHUB_TOKEN }}
         add-paths: |
           CHANGELOG.md
         delete-branch: false
-        title: Release version ${{ steps.release_version.outputs.version }}
+        title: Release request version ${{ steps.release_version.outputs.version }}
         body: |
-          simpler
+          This request  was triggered by **${{ steps.release_version.outputs.AUTHOR }}**
+          
+          The initiating tag was **${{ github.ref_name }}**
+
+          Merging this Pull Request will create a release of the version **${{ steps.release_version.outputs.version }}**.
         base: main  # NOTE: this should match the branch on which the tag was made
 
