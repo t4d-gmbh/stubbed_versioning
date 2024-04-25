@@ -27,12 +27,15 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
+        branch: ${{ github.head_ref }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
         tags: true
     - uses: ncipollo/release-action@v1
       with:
+        # commit: ${{ github.head_ref }}  # NOTE: Asserts to not create release from main
         # artifacts: "release.tar.gz,foo/*.txt"
         # bodyFile: "body.md"
+        # tag: ${{ steps.release_version.outputs.version }}
         body: |
           Release of version ${{ steps.release_version.outputs.version }}
