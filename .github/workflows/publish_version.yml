@@ -6,18 +6,6 @@ on:
       - closed
 
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo ${{ github.ref }}
-  job_running_if_merged:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo Version was released and ${{ github.ref }}
   job_running_if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
