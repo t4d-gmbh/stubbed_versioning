@@ -5,6 +5,10 @@ on:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+-rc*"
 
+env:
+  CHGLOG_RELEASE: git-chglog_0.15.4_linux_amd64
+  CHGLOG_PATH: https://github.com/git-chglog/git-chglog/releases/download/v0.15.4
+
 jobs:
   initiate-version-release:
     runs-on: ubuntu-latest
@@ -17,15 +21,24 @@ jobs:
       run: |
         echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
         echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
-    - name: Auto-update Changelog
-      shell: bash
+    - name: Get git-chglog and update CHANGELOG
       run: |
-        curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
-        ls -al
-        chmod u+x git-chglog
-        ls -al
-        ./git-chglog -o CHANGELOG.md
-        rm git-chglog
+        wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
+        tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
+        git config user.email "actions@github.com"
+        git config user.name "github_actions"
+        git tag -a ${{ needs.increment-tag.outputs.VERSION }} -m 'interim tag for changelog'
+        ./git-chglog -o CHANGELOG.md  # update the changelog file
+        git tag -d ${{ needs.increment-tag.outputs.VERSION }}  # remove the tag again
+        # - name: Auto-update Changelog
+        #   shell: bash
+        #   run: |
+        #     curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
+        #     ls -al
+        #     chmod u+x git-chglog
+        #     ls -al
+        #     ./git-chglog -o CHANGELOG.md
+        #     rm git-chglog
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
