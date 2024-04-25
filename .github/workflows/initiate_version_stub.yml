@@ -27,10 +27,11 @@ jobs:
       run: |
         wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
         tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
-        ./git-chglog -o CHANGELOG.md  # update the changelog file
-        rm git-chglog
+        ./git-chglog -o _tmpCHLOG.md ${{ github.ref_name }} # update the changelog only for this tag
+        cat _tmpCHLOG.md CHANGELOG.md > new_CHLOG.md && mv new_CHLOG.md CHANGELOG.md
         # now we substitute the clean tag
         sed -i -e "s/${{ github.ref_name }}/${{ steps.release_version.outputs.version}}/g" CHANGELOG.md
+        rm git-chglog
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
