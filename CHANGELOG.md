@@ -1,9 +1,6 @@
 
-<a name="0.1.0-rc2"></a>
-## 0.1.0-rc2
+<a name="0.1.1-rc2"></a>
+## 0.1.1-rc2
 
 > 2024-04-25
 
-### Feature
-
-- Introducing the workflows
