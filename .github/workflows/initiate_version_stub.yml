@@ -19,7 +19,7 @@ jobs:
       run: |
         curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
         chmod u+x git-chglog
-        ./git-chglog -o CHANGELOG.md
+        git-chglog -o CHANGELOG.md
         rm git-chglogt
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
