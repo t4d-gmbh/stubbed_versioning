@@ -21,6 +21,7 @@ jobs:
         chmod u+x git-chglog
         ./git-chglog -o CHANGELOG.md
         rm git-chglogt
+    - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
         branch: ${{ steps.release_version.outputs.version }}
