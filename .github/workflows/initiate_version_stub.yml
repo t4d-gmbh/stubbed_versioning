@@ -32,7 +32,7 @@ jobs:
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
-        branch: ${{ steps.release_version.outputs.version }}
+        branch: release-${{ steps.release_version.outputs.version }}
         commit-message: "automated-update of changelog"
         token: ${{ secrets.GITHUB_TOKEN }}
         add-paths: |
