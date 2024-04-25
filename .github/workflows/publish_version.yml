@@ -19,9 +19,13 @@ jobs:
     - run: |
         echo Version was released and ${{ github.ref }}
   job_running_if_merged:
-    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo Version was released
-
+        echo r ${{ github.ref }}
+        echo rn ${{ github.ref_name}}
+        echo sha ${{ github.sha }}
+        echo hr ${{ github.head_ref }}
+        echo br ${{ github.base_ref }}
+        echo en ${{ github.event_name }}
