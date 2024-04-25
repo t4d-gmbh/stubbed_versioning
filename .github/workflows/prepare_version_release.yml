@@ -14,7 +14,13 @@ jobs:
           echo I ran
       - name: echo1
         run: |
-          echo "VERSION=`echo $(${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
+          echo "VERSION=`echo $(${{ github.ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
       - name: echo2
         run: |
-          echo "VERSION=`echo $($github.head_ref|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
+          echo "VERSION=`echo $($github.ref|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
+      - name: echo4
+        run: |
+          echo $($github.ref|grep -Eo '[0-9]+.[0-9]+.[0-9]+')
+      - name: echo5
+        run: |
+          echo "VERSION=$(echo ${{ github.ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')"
