@@ -26,15 +26,7 @@ jobs:
         wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
         tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
         ./git-chglog -o CHANGELOG.md  # update the changelog file
-        # - name: Auto-update Changelog
-        #   shell: bash
-        #   run: |
-        #     curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
-        #     ls -al
-        #     chmod u+x git-chglog
-        #     ls -al
-        #     ./git-chglog -o CHANGELOG.md
-        #     rm git-chglog
+        rm git-chglog
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
@@ -43,12 +35,8 @@ jobs:
         add-paths: |
           CHANGELOG.md
         delete-branch: false
-        title: Release request version ${{ steps.release_version.outputs.version }}
+        title: Release version ${{ steps.release_version.outputs.version }}
         body: |
-          This request  was triggered by **${{ steps.release_version.outputs.AUTHOR }}**
-          
-          The initiating tag was **${{ github.ref_name }}**
-
-          Merging this Pull Request will create a release of the version **${{ steps.release_version.outputs.version }}**.
+          simpler
         base: main  # NOTE: this should match the branch on which the tag was made
 
