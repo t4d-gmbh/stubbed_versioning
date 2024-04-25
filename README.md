@@ -47,7 +47,7 @@ It is easiest to try it yourself.
 To do so:
 
 - [fork this repository](https://github.com/t4d-gmbh/stubbed_versioning/fork)
-- add some change to `main` e.g. by editing the README.md
+- add some change to `main` e.g. by editing the `README.md`
 - create a new git tag with `-rcX` appended to the patch and push it:
       
       git tag -a 2.0.0-rc1 -m 'Trying new things'
