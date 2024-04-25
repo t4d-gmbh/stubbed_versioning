@@ -1,10 +1,10 @@
 
-<a name="0.1.1-rc7"></a>
-## 0.1.1-rc7
+<a name="0.1.1-rc8"></a>
+## 0.1.1-rc8
 
 > 2024-04-25
 
 ### Fix
 
-* stay on the right branches
+* release from release branch
 
