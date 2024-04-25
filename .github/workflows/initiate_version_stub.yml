@@ -16,11 +16,11 @@ jobs:
         echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
         echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
     - name: Auto-update Changelog
-        run: |
-          curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
-          chmod u+x git-chglog
-          ./git-chglog -o CHANGELOG.md
-          rm git-chglogt
+      run: |
+        curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
+        chmod u+x git-chglog
+        ./git-chglog -o CHANGELOG.md
+        rm git-chglogt
       uses: peter-evans/create-pull-request@v6
       with:
         branch: ${{ steps.release_version.outputs.version }}
