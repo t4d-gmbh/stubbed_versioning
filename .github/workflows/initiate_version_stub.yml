@@ -21,7 +21,9 @@ jobs:
       shell: bash
       run: |
         curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.15.4/git-chglog_linux_amd64
+        ls -al
         chmod u+x git-chglog
+        ls -al
         ./git-chglog -o CHANGELOG.md
         rm git-chglog
     - name: Create version release Pull Request
