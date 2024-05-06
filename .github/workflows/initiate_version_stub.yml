@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+-rc*"
+    branches:
+      - "32-version-is-not-picked-up-correctly"
 
 env:
   CHGLOG_RELEASE: git-chglog_0.15.4_linux_amd64
@@ -27,9 +29,9 @@ jobs:
         # get the previous clean (i.e. no -rc ) version
         # first fetch all the tags
         git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
-        `echo $(${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`
-        echo "VERSION=`echo $(${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
-        echo "VERSION=`echo $(${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
+        `echo $(echo ${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`
+        echo "VERSION=`echo $(echo ${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`"
+        echo "VERSION=`echo $(echo ${{ github.ref_name }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
         echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GTIHUB_OUTPUT
         echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
     - name: Get git-chglog and update CHANGELOG
