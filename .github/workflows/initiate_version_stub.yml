@@ -5,7 +5,7 @@ on:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+-rc*"
     # TODO: remove; this is for debugging
-    branch:
+    branches:
       - "16-git-ls-remote-fails-complaining-about-missing-object"
 
 env:
