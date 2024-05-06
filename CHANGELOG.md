@@ -1,4 +1,42 @@
 
+<a name="0.4.0"></a>
+## [0.4.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.3.3...0.4.0)
+
+> 2024-05-07
+
+### Feature
+
+* deleting branches with 0 diff and no PR ([#23](https://github.com/t4d-gmbh/stubbed_versioning/issues/23))
+
+### Fix
+
+* make sure git-chglog reports all changes
+* remove duplicated opiton
+
+### Pull Requests
+
+* Merge pull request [#27](https://github.com/t4d-gmbh/stubbed_versioning/issues/27) from t4d-gmbh/25-git-chglog-does-not-pick-up-all-changes-when-clone-with-depth-1
+* Merge pull request [#19](https://github.com/t4d-gmbh/stubbed_versioning/issues/19) from t4d-gmbh/release-0.3.3
+
+
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.3.2...0.3.3)
+
+> 2024-05-06
+
+### Fix
+
+* manually correct changelog
+* correct the run-on clause
+* fetch needed info from origin
+* typeo in workflow
+* specify changes to last clean version
+
+### Pull Requests
+
+* Merge pull request [#17](https://github.com/t4d-gmbh/stubbed_versioning/issues/17) from t4d-gmbh/16-git-ls-remote-fails-complaining-about-missing-object
+
+
 <a name="0.3.3"></a>
 ## 0.3.3
 
