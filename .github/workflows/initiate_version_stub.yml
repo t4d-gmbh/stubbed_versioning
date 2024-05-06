@@ -35,7 +35,7 @@ jobs:
         wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
         tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
         # update the changelog only for this tag
-        ./git-chglog --tag-filter-pattern="[0-9]+.[0-9]+.[0-9]+${{ '$' }}|${{ github.ref_name}}" -o _tmpCHLOG.md ${{ steps.release_version.outputs.previous_version}}..${{ github.ref_name }}
+        ./git-chglog --tag-filter-pattern="[0-9]+.[0-9]+.[0-9]+${{ '$' }}|${{ github.ref_name}}" -o _tmpCHLOG.md ${{ github.ref_name }}
         cat _tmpCHLOG.md CHANGELOG.md > new_CHLOG.md && mv new_CHLOG.md CHANGELOG.md
         # now we substitute the clean tag
         sed -i -e "s/${{ github.ref_name }}/${{ steps.release_version.outputs.version}}/g" CHANGELOG.md
