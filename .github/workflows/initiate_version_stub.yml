@@ -25,9 +25,7 @@ jobs:
         echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
         # get the previous clean (i.e. no -rc ) version
         # first fetch all the tags
-        git tag --list
-        git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/* +refs/heads/*:refs/remotes/origin/*
-        git tag --list
+        git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
         echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -v '\-rc' | tail -n 1)`" >>$GITHUB_OUTPUT
     - name: Get git-chglog and update CHANGELOG
       run: |
