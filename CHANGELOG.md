@@ -1,4 +1,14 @@
 
+<a name="0.4.0"></a>
+## [0.4.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.3.3...0.4.0)
+
+> 2024-05-06
+
+### Fix
+
+* remove duplicated opiton
+
+
 <a name="0.3.3"></a>
 ## 0.3.3
 
