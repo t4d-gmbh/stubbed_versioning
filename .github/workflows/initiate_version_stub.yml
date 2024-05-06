@@ -21,20 +21,17 @@ jobs:
     - name: Register desired version
       id: release_version
       run: |
-        echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
-        echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
         # get the previous clean (i.e. no -rc ) version
         # first fetch all the tags
-        git tag --list
-        git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/* +refs/heads/*:refs/remotes/origin/*
-        git tag --list
-        echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -v '\-rc' | tail -n 1)`" >>$GITHUB_OUTPUT
+        git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
+        echo "VERSION=`echo $(git describe --tags --abbrev=0|grep -Eo '[0-9]+.[0-9]+.[0-9]+')`" >> $GITHUB_OUTPUT
+        echo "AUTHOR=`echo $(git log -1 --pretty=%an)`" >> $GITHUB_OUTPUT
     - name: Get git-chglog and update CHANGELOG
       run: |
         wget ${{ env.CHGLOG_PATH }}/${{ env.CHGLOG_RELEASE}}.tar.gz  # get the binary for the chglog
         tar --extract --file=${{ env.CHGLOG_RELEASE}}.tar.gz git-chglog
         # update the changelog only for this tag
-        ./git-chglog -o _tmpCHLOG.md ${{ github.ref_name }}..${{ steps.release_version.outputs.PREVIOUS_VERSION }}
+        ./git-chglog -o _tmpCHLOG.md ${{ github.ref_name }}
         cat _tmpCHLOG.md CHANGELOG.md > new_CHLOG.md && mv new_CHLOG.md CHANGELOG.md
         # now we substitute the clean tag
         sed -i -e "s/${{ github.ref_name }}/${{ steps.release_version.outputs.version}}/g" CHANGELOG.md
