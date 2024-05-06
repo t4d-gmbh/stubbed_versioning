@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+-rc*"
+    # TODO: remove; this is for debugging
+    branch:
+      - "16-git-ls-remote-fails-complaining-about-missing-object"
 
 env:
   CHGLOG_RELEASE: git-chglog_0.15.4_linux_amd64
