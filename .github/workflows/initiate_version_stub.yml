@@ -45,9 +45,9 @@ jobs:
         add-paths: |
           CHANGELOG.md
         delete-branch: false
-        title: Release request version ${{ steps.release_version.outputs.version }}
+        title: Release version ${{ steps.release_version.outputs.version }}
         body: |
-          This request  was triggered by **${{ steps.release_version.outputs.AUTHOR }}**
+          This request was triggered by **${{ steps.release_version.outputs.AUTHOR }}**
           
           The initiating tag was **${{ github.ref_name }}**
 
@@ -55,4 +55,5 @@ jobs:
         labels: |
           version-release
         base: main  # NOTE: this should match the branch on which the tag was made
+        delete-branch: true  # NOTE: No immediate delete after merge, instead branches with no diff are deleted
         # draft: true  # NOTE: this is not allowed on free private repos
