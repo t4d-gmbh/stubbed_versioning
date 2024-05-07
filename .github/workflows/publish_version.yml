@@ -13,12 +13,18 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: debugging
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Get the head ref sha
         run: |
-          echo "HEAD_SHA=`echo $(gh pr view $EVENT --json='headRefOid' --jq='.[]')`"  # TODO: remove
-          echo "HEAD_SHA=`echo $(gh pr view $EVENT --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
+          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`"  # TODO: remove
+          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
           EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
       - uses: actions/checkout@v4
         with:
