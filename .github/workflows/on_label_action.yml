@@ -17,13 +17,14 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       EVENT_URL: ${{ github.event.issue.html_url }}  # This is either the issue or pr
+      OWNER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
     steps:
       - name: Assert labels are defined
         run: |
-          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.REPO }}
-          gh label create ${{ env.LABEL_SUCCESS }} --repo ${{ env.REPO }}
-          gh label create ${{ env.LABEL_FAILURE }} --repo ${{ env.REPO }}
+          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          gh label create ${{ env.LABEL_SUCCESS }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          gh label create ${{ env.LABEL_FAILURE }} --repo ${{ env.OWNER }}/${{ env.REPO }}
           # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
       - id: set_label_check
         run: echo "label_check=${{ env.LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
