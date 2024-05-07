@@ -1,0 +1,52 @@
+name: On label workflow
+
+on:
+  pull_request:
+    types: [ labeled ]
+
+env:
+  LABEL_CHECK: 'special::check'
+  LABEL_SUCCESS: 'special::passed'
+  LABEL_FAILURE: 'special::failed'
+
+jobs:
+  check_label_exist:
+    id: defined_labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assert labels are defined
+        run: |
+          gh labels create $LABEL_CHECK
+          gh labels create $LABEL_SUCCESS
+          gh labels create $LABEL_FAILURE
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run_special_check:
+    id: special_check
+    if: ${{ github.event.label.name == env.LABEL_CHECK }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Doing something on demand
+        id: some_task
+        continue-on-error: true  # make sure the next steps run also on failure
+        run: echo Hello, world!
+      - name: Updating the label accordingly
+        run: |
+          gh pr edit $EVENT_ID --remove-label $LABEL_CHECK
+          if [ ${{ steps.some_task.outcome }} == "success" ]; then
+            gh pr edit $EVENT_ID --remove-label $LABEL_CHECK
+            gh pr edit $EVENT_ID --add-label $LABEL_SUCCESS
+            exit 0
+          elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
+            gh pr edit $EVENT_ID --add-label $LABEL_FAILURE
+            exit 1
+          else
+            gh pr edit $EVENT_ID --add-label $LABEL_CHECK
+            echo "On demand task outcome was ${{ steps.some_task.outcome }}"
+          fi
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_ID: ${{ github.event.issue.id }}  # This is either the issue or pr id
