@@ -18,23 +18,6 @@
 * Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
 
 
-<a name="0.6.4"></a>
-## [0.6.4](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.3...0.6.4)
-
-> 2024-05-08
-
-### Fix
-
-* notice about branch protection ([#69](https://github.com/t4d-gmbh/stubbed_versioning/issues/69))
-* create release notice from changelog ([#66](https://github.com/t4d-gmbh/stubbed_versioning/issues/66))
-* target diff to previous version
-
-### Pull Requests
-
-* Merge pull request [#64](https://github.com/t4d-gmbh/stubbed_versioning/issues/64) from t4d-gmbh/63-release-notice-is-still-empty
-* Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
-
-
 <a name="0.6.3"></a>
 ## [0.6.3](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.2...0.6.3)
 
