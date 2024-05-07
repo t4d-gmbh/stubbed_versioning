@@ -51,17 +51,17 @@ jobs:
         run: |
           echo Hello, world!
           exit 1
-      - name: Updating the label accordingly
+      - name: Check if on demand taks succeeded
         run: |
           gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
           if [ ${{ steps.some_task.outcome }} == "success" ]; then
             gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
             gh pr edit $EVENT --add-label ${{ env.LABEL_SUCCESS }}
-            echo ‘### ${{ github.event.label.url }} passed! :rocket:’ >> $GITHUB_STEP_SUMMARY
+            echo "### ${{ github.event.label.url }} passed! :rocket:" >> $GITHUB_STEP_SUMMARY
             exit 0
           elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
             gh pr edit $EVENT --add-label ${{ env.LABEL_FAILURE }}
-            echo ‘### ${{ github.event.label.url }} failed! :sad:’ >> $GITHUB_STEP_SUMMARY
+            echo "### ${{ github.event.label.url }} failed!" >> $GITHUB_STEP_SUMMARY
             exit 1
           else
             gh pr edit $EVENT --add-label ${{ env.LABEL_CHECK }}
@@ -70,6 +70,4 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
           EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
