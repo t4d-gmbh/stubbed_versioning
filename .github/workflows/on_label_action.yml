@@ -22,7 +22,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   run_special_check:
-    if: ${{ github.event.label.name == env.LABEL_CHECK }}
+    if: github.event.label.name == env.LABEL_CHECK
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
