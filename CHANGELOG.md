@@ -1,4 +1,14 @@
 
+<a name="0.6.4"></a>
+## [0.6.4](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.3...0.6.4)
+
+> 2024-05-08
+
+### Pull Requests
+
+* Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
+
+
 <a name="0.6.3"></a>
 ## [0.6.3](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.2...0.6.3)
 
