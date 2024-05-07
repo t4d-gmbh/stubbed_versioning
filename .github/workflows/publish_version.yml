@@ -7,8 +7,7 @@ on:
 
 jobs:
   release-version:
-    # if: ${{ github.event.pull_request.merged && startsWith(github.head_ref, 'release-') }}
-    if: ${{ github.event.pull_request.merged }}  # TODO: remove in fovour of the above
+    if: ${{ github.event.pull_request.merged && startsWith(github.head_ref, 'release-') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,7 +18,6 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Get the head ref sha
         run: |
-          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`"  # TODO: remove
           echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,8 +41,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          # branch: ${{ github.head_ref }}
-          branch: ${{ steps.get_head.outputs.head_sha}}
+          branch: ${{ github.head_ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
           tags: true
