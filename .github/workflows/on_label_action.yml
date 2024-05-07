@@ -17,9 +17,9 @@ jobs:
     steps:
       - name: Assert labels are defined
         run: |
-          gh labels create ${{ env.LABEL_CHECK }}
-          gh labels create ${{ env.LABEL_SUCCESS }}
-          gh labels create ${{ env.LABEL_FAILURE }}
+          gh label create ${{ env.LABEL_CHECK }}
+          gh label create ${{ env.LABEL_SUCCESS }}
+          gh label create ${{ env.LABEL_FAILURE }}
           # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
