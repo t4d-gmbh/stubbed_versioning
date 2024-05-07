@@ -8,6 +8,20 @@
 
 * typeo in release task
 
+### Pull Requests
+
+* Merge pull request [#55](https://github.com/t4d-gmbh/stubbed_versioning/issues/55) from t4d-gmbh/release-0.6.2
+
+
+<a name="0.6.2"></a>
+## [0.6.2](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.1...0.6.2)
+
+> 2024-05-07
+
+### Fix
+
+* typeo in release task
+
 
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.5.0...0.6.1)
