@@ -6,6 +6,7 @@
 
 ### Fix
 
+* notice about branch protection ([#69](https://github.com/t4d-gmbh/stubbed_versioning/issues/69))
 * create release notice from changelog ([#66](https://github.com/t4d-gmbh/stubbed_versioning/issues/66))
 * target diff to previous version
 
