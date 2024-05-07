@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Get the head ref sha
         run: |
-          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`"  # TODO: remove
-          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
+          echo "HEAD_SHA=`echo $(gh pr view $EVENT --json='headRefOid' --jq='.[]')`"  # TODO: remove
+          echo "HEAD_SHA=`echo $(gh pr view $EVENT --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
