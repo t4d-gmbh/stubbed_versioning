@@ -1,0 +1,72 @@
+name: On label workflow
+
+on:
+  pull_request:
+    types: [ labeled ]
+
+env:
+  LABEL_CHECK: 'special::check'
+  LABEL_SUCCESS: 'special::passed'
+  LABEL_FAILURE: 'special::failed'
+
+jobs:
+  check_label_exist:
+    runs-on: ubuntu-latest
+    outputs:
+      label_check: ${{ steps.set_label_check.outputs.label_check }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+    steps:
+      - name: Assert labels ${{ env.LABEL_CHECK }} is defined
+        run: |
+          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
+      - name: Assert labels ${{ env.LABEL_SUCCESS }} is defined
+        run: |
+          gh label create ${{ env.LABEL_SUCCESS }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
+      - name: Assert labels ${{ env.LABEL_FAILURE }} is defined
+        run: |
+          gh label create ${{ env.LABEL_FAILURE }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
+      - id: set_label_check
+        run: echo "label_check=${{ env.LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
+  run_special_check:
+    if: github.event.label.name == needs.check_label_exist.outputs.label_check
+    needs:
+      - check_label_exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}  # this is needed for gh as it needs a branch
+      - name: Doing something on demand
+        id: some_task
+        continue-on-error: true  # make sure the next steps run also on failure
+        run: |
+          echo Hello, world!
+      - name: Check if on demand taks succeeded
+        run: |
+          gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
+          if [ ${{ steps.some_task.outcome }} == "success" ]; then
+            gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
+            gh pr edit $EVENT --add-label ${{ env.LABEL_SUCCESS }}
+            echo "### ${{ github.event.label.url }} passed! :rocket:" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
+            gh pr edit $EVENT --add-label ${{ env.LABEL_FAILURE }}
+            echo "### ${{ github.event.label.url }} failed!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            gh pr edit $EVENT --add-label ${{ env.LABEL_CHECK }}
+            echo "On demand task outcome was ${{ steps.some_task.outcome }}"
+          fi
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
