@@ -16,7 +16,6 @@ jobs:
       label_check: ${{ steps.set_label_check.outputs.label_check }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      EVENT_URL: ${{ github.event.issue.html_url }}  # This is either the issue or pr
       OWNER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
     steps:
@@ -50,19 +49,19 @@ jobs:
         run: echo Hello, world!
       - name: Updating the label accordingly
         run: |
-          gh pr edit $EVENT_ID --remove-label ${{ env.LABEL_CHECK }}
+          gh pr edit $EVENT_URL --remove-label ${{ env.LABEL_CHECK }}
           if [ ${{ steps.some_task.outcome }} == "success" ]; then
-            gh pr edit $EVENT_ID --remove-label ${{ env.LABEL_CHECK }}
-            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_SUCCESS }}
+            gh pr edit $EVENT_URL --remove-label ${{ env.LABEL_CHECK }}
+            gh pr edit $EVENT_URL --add-label ${{ env.LABEL_SUCCESS }}
             exit 0
           elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
-            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_FAILURE }}
+            gh pr edit $EVENT_URL --add-label ${{ env.LABEL_FAILURE }}
             exit 1
           else
-            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_CHECK }}
+            gh pr edit $EVENT_URL --add-label ${{ env.LABEL_CHECK }}
             echo "On demand task outcome was ${{ steps.some_task.outcome }}"
           fi
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EVENT_ID: ${{ github.event.issue.id }}  # This is either the issue or pr id
+          EVENT_URL: ${{ github.event.issue.html_url }}  # This is either the issue or pr
