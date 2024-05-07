@@ -14,15 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       label_check: ${{ steps.set_label_check.outputs.label_check }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      EVENT_URL: ${{ github.event.issue.html_url }}  # This is either the issue or pr
+      REPO: ${{ github.event.repository.name }}
     steps:
       - name: Assert labels are defined
         run: |
-          gh label create ${{ env.LABEL_CHECK }}
-          gh label create ${{ env.LABEL_SUCCESS }}
-          gh label create ${{ env.LABEL_FAILURE }}
+          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.REPO }}
+          gh label create ${{ env.LABEL_SUCCESS }} --repo ${{ env.REPO }}
+          gh label create ${{ env.LABEL_FAILURE }} --repo ${{ env.REPO }}
           # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: set_label_check
         run: echo "label_check=${{ env.LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
   run_special_check:
