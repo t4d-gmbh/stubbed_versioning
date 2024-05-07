@@ -36,6 +36,7 @@ by merging it.
 > Always consider protecting your default branch (most likely this is `main`).
 > Doing so avoids bad surprises when merging a Pull Reuest into an updated default branch.
 
+
 Upon merge the action [publish_version.yml](.github/workflows/publish_version.yml) will create the
 git tag `1.2.0`, so a cleaned version of your initial `1.2.0-rc1` on HEAD of `release-1.2.0`
 and publish a
