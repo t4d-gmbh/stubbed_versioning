@@ -42,3 +42,4 @@ jobs:
           commit: ${{ github.event.pull_request.head.sha }}
           tag: ${{ steps.release_version.outputs.version }}
           bodyFile: "body.md"
+          allowUpdates: true
