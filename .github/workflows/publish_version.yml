@@ -12,10 +12,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: debugging
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
@@ -46,5 +42,3 @@ jobs:
           commit: ${{ github.event.pull_request.head.sha }}
           tag: ${{ steps.release_version.outputs.version }}
           bodyFile: "body.md"
-          body: |
-            Release of version ${{ steps.release_version.outputs.version }}

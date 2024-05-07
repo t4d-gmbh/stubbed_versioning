@@ -44,7 +44,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         branch: release-${{ steps.release_version.outputs.version }}
-        commit-message: "Merging release branch for version ${{ steps.release_version.outputs.version }}"
+        commit-message: "Version ${{ steps.release_version.outputs.version }}"
         token: ${{ secrets.GITHUB_TOKEN }}
         add-paths: |
           CHANGELOG.md
