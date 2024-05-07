@@ -65,5 +65,5 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EVENT_URL: ${{ github.event.issue.html_url }}  # This is either the issue or pr
+          EVENT_URL: ${{ github.event.html_url }}  # This is either the issue or pr
           GITHUB_CONTEXT: ${{ toJson(github) }}
