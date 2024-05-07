@@ -50,7 +50,6 @@ jobs:
         continue-on-error: true  # make sure the next steps run also on failure
         run: |
           echo Hello, world!
-          exit 1
       - name: Check if on demand taks succeeded
         run: |
           gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
