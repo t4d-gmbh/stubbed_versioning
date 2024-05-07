@@ -37,8 +37,12 @@ jobs:
         run: |
           awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
         # this gets the first the changes to the previous clean tag (including manual edits
+      - name: Debugging
+        run: |
+          cat ./body.md
+        # this gets the first the changes to the previous clean tag (including manual edits
       - uses: ncipollo/release-action@v1
         with:
           commit: ${{ github.event.pull_request.head.sha }}
           tag: ${{ steps.release_version.outputs.version }}
-          bodyFile: "body.md"
+          bodyFile: "./body.md"
