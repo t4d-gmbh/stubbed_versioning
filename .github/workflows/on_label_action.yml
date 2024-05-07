@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}  # this is needed for gh as it needs a branch
       - name: Doing something on demand
         id: some_task
         continue-on-error: true  # make sure the next steps run also on failure
