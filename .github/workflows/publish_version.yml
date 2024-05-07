@@ -13,40 +13,44 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: debugging
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.head_ref }}
-    - name: Get the version to release
-      id: release_version
-      run: |
-        git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
-        echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
-        echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
-    - name: Creating the version tag
-      run: |
-        git config user.email "actions@github.com"
-        git config user.name "github_actions"
-        git tag -a ${{ steps.release_version.outputs.version }} -m 'Published Version'
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: ${{ github.head_ref }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
-        tags: true
-    - name: Prepare Release note
-      run: |
-        awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.version }}"*/{exit}' CHANGELOG.md | head -n -1a >> body.md
-      # this gets the first the changes to the previous clean tag (including manual edits
-    - uses: ncipollo/release-action@v1
-      with:
-        commit: ${{ github.head_ref }}  # NOTE: Asserts to not create release from main
-        tag: ${{ steps.release_version.outputs.version }}
+      - name: Get the head ref sha
+        run: |
+          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`"
+          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.get_head.outputs.head_sha}}
+      - name: Get the version to release
+        id: release_version
+        run: |
+          git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
+          echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
+          echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
+      - name: Creating the version tag
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "github_actions"
+          git tag -a ${{ steps.release_version.outputs.version }} -m 'Published Version'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          # branch: ${{ github.head_ref }}
+          branch: ${{ steps.get_head.outputs.head_sha}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+          tags: true
+      - name: Prepare Release note
+        run: |
+          awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.version }}"*/{exit}' CHANGELOG.md | head -n -1a >> body.md
+        # this gets the first the changes to the previous clean tag (including manual edits
+      - uses: ncipollo/release-action@v1
+        with:
+          commit: ${{ steps.get_head.outputs.head_sha}}  # NOTE: Asserts to not create release from main
+          tag: ${{ steps.release_version.outputs.version }}
 
-        # bodyFile: "body.md"
-        body: |
-          Release of version ${{ steps.release_version.outputs.version }}
+          # bodyFile: "body.md"
+          body: |
+            Release of version ${{ steps.release_version.outputs.version }}
