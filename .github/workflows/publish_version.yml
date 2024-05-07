@@ -50,7 +50,6 @@ jobs:
         with:
           commit: ${{ steps.get_head.outputs.head_sha}}  # NOTE: Asserts to not create release from main
           tag: ${{ steps.release_version.outputs.version }}
-
-          # bodyFile: "body.md"
+          bodyFile: "body.md"
           body: |
             Release of version ${{ steps.release_version.outputs.version }}
