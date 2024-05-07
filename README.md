@@ -6,7 +6,7 @@ This project contains an exemplary setup for a version release pipeline that ful
 1. Use [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) as single source of
    truth for the versioning
 1. Allow to include information about the version in the code-base itself
-1. Allow to run and address resulting issues of designated pre-release tests (and potentially other worklfows)
+1. Allow to run and address resulting issues of designated pre-release tests (and potentially other workflows)
 1. Include the released state of the repository in the reference branch
 
 The combination of these requirements leads to a non-trivial version release workflow described below in 
@@ -58,7 +58,6 @@ To do so:
 - merge the Pull request and give GitHub a minute to run the actions
 - you will find that the changes introduced in the `release-2.0.0` branch were merged to `main`
 - when heading to the main URL of the repository you will see a new Release added
-
 
 ## Details
 
