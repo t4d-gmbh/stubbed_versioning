@@ -48,7 +48,9 @@ jobs:
       - name: Doing something on demand
         id: some_task
         continue-on-error: true  # make sure the next steps run also on failure
-        run: echo Hello, world!
+        run: |
+          echo Hello, world!
+          exit 1
       - name: Updating the label accordingly
         run: |
           gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
