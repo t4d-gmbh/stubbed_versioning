@@ -11,7 +11,6 @@ env:
 
 jobs:
   check_label_exist:
-    id: defined_labels
     runs-on: ubuntu-latest
     steps:
       - name: Assert labels are defined
@@ -23,7 +22,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   run_special_check:
-    id: special_check
     if: ${{ github.event.label.name == env.LABEL_CHECK }}
     runs-on: ubuntu-latest
     steps:
