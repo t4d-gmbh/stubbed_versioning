@@ -1,4 +1,18 @@
 
+<a name="0.6.3"></a>
+## [0.6.3](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.2...0.6.3)
+
+> 2024-05-07
+
+### Fix
+
+* target pr head commit
+
+### Pull Requests
+
+* Merge pull request [#58](https://github.com/t4d-gmbh/stubbed_versioning/issues/58) from t4d-gmbh/57-clean-tag-is-created-on-the-merge-commit-not-the-previous-one
+
+
 <a name="0.6.2"></a>
 ## [0.6.2](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.1...0.6.2)
 
