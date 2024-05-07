@@ -18,6 +18,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Get the head ref sha
         run: |
+          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`"
           echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
