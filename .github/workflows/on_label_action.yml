@@ -20,12 +20,21 @@ jobs:
       OWNER: ${{ github.repository_owner }}
       REPO: ${{ github.event.repository.name }}
     steps:
-      - name: Assert labels are defined
+      - name: Assert labels ${{ env.LABEL_CHECK }} is defined
         run: |
           gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
+      - name: Assert labels ${{ env.LABEL_SUCCESS }} is defined
+        run: |
           gh label create ${{ env.LABEL_SUCCESS }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+          # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
+      - name: Assert labels ${{ env.LABEL_FAILURE }} is defined
+        run: |
           gh label create ${{ env.LABEL_FAILURE }} --repo ${{ env.OWNER }}/${{ env.REPO }}
           # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
+        continue-on-error: true  # make sure the next steps run also on failure
       - id: set_label_check
         run: echo "label_check=${{ env.LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
   run_special_check:
