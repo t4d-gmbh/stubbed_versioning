@@ -1,4 +1,26 @@
 
+<a name="0.6.1"></a>
+## [0.6.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.5.0...0.6.1)
+
+> 2024-05-07
+
+### Feature
+
+* adding changes to release note
+
+### Fix
+
+* actually passing the body file to release
+* better commit message for version pr ([#44](https://github.com/t4d-gmbh/stubbed_versioning/issues/44))
+
+### Pull Requests
+
+* Merge pull request [#53](https://github.com/t4d-gmbh/stubbed_versioning/issues/53) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
+* ... _irrelevant PR's for debugging_
+* Merge pull request [#46](https://github.com/t4d-gmbh/stubbed_versioning/issues/46) from t4d-gmbh/release-0.6.0
+* Merge pull request [#45](https://github.com/t4d-gmbh/stubbed_versioning/issues/45) from t4d-gmbh/40-better-infor-for-the-release
+
+
 <a name="0.6.0"></a>
 ## [0.6.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.5.0...0.6.0)
 
