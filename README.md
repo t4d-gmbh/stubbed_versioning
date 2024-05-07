@@ -32,6 +32,8 @@ all the changes you made related to the points **3.** and **4.** from above.
 Once you are satisfied with the state of the `release-1.2.0` branch, simply close the Pull Request
 by merging it.
 
+_Note: Always consider protecting yor default branch in order to avoid bad surprises when a Pull request closes
+
 Upon merge the action [publish_version.yml](.github/workflows/publish_version.yml) will create the
 git tag `1.2.0`, so a cleaned version of your initial `1.2.0-rc1` on HEAD of `release-1.2.0`
 and publish a
