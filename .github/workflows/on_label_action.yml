@@ -17,14 +17,14 @@ jobs:
     steps:
       - name: Assert labels are defined
         run: |
-          gh labels create $LABEL_CHECK
-          gh labels create $LABEL_SUCCESS
-          gh labels create $LABEL_FAILURE
+          gh labels create ${{ env.LABEL_CHECK }}
+          gh labels create ${{ env.LABEL_SUCCESS }}
+          gh labels create ${{ env.LABEL_FAILURE }}
           # echo $(gh label list --json='name' --jq '.[].name') >> LABELS.txt
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: set_label_check
-        run: echo "label_check=${{ LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
+        run: echo "label_check=${{ env.LABEL_CHECK  }}" >> "$GITHUB_OUTPUT"
   run_special_check:
     if: github.event.label.name == needs.check_label_exist.outputs.label_check
     needs:
@@ -38,16 +38,16 @@ jobs:
         run: echo Hello, world!
       - name: Updating the label accordingly
         run: |
-          gh pr edit $EVENT_ID --remove-label $LABEL_CHECK
+          gh pr edit $EVENT_ID --remove-label ${{ env.LABEL_CHECK }}
           if [ ${{ steps.some_task.outcome }} == "success" ]; then
-            gh pr edit $EVENT_ID --remove-label $LABEL_CHECK
-            gh pr edit $EVENT_ID --add-label $LABEL_SUCCESS
+            gh pr edit $EVENT_ID --remove-label ${{ env.LABEL_CHECK }}
+            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_SUCCESS }}
             exit 0
           elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
-            gh pr edit $EVENT_ID --add-label $LABEL_FAILURE
+            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_FAILURE }}
             exit 1
           else
-            gh pr edit $EVENT_ID --add-label $LABEL_CHECK
+            gh pr edit $EVENT_ID --add-label ${{ env.LABEL_CHECK }}
             echo "On demand task outcome was ${{ steps.some_task.outcome }}"
           fi
         shell: bash
