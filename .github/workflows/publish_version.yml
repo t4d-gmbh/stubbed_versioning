@@ -16,18 +16,9 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Get the head ref sha
-        run: |
-          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`"
-          echo "HEAD_SHA=`echo $(gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
-          EVENT: ${{ github.event.number }}  # This is either the issue or pr
       - uses: actions/checkout@v4
         with:
-          ref: ${{ steps.get_head.outputs.head_sha}}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Get the version to release
         id: release_version
         run: |
@@ -42,7 +33,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          branch: ${{ github.head_ref }}
+          # branch: ${{ github.head_ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
           tags: true
@@ -52,7 +43,7 @@ jobs:
         # this gets the first the changes to the previous clean tag (including manual edits
       - uses: ncipollo/release-action@v1
         with:
-          commit: ${{ steps.get_head.outputs.head_sha}}  # NOTE: Asserts to not create release from main
+          commit: ${{ github.event.pull_request.head.sha }}
           tag: ${{ steps.release_version.outputs.version }}
           bodyFile: "body.md"
           body: |
