@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
+          EVENT: ${{ github.event.number }}  # This is either the issue or pr
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.get_head.outputs.head_sha}}
