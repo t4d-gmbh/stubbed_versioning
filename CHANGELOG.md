@@ -16,11 +16,7 @@
 ### Pull Requests
 
 * Merge pull request [#53](https://github.com/t4d-gmbh/stubbed_versioning/issues/53) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
-* Merge pull request [#52](https://github.com/t4d-gmbh/stubbed_versioning/issues/52) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
-* Merge pull request [#51](https://github.com/t4d-gmbh/stubbed_versioning/issues/51) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
-* Merge pull request [#50](https://github.com/t4d-gmbh/stubbed_versioning/issues/50) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
-* Merge pull request [#49](https://github.com/t4d-gmbh/stubbed_versioning/issues/49) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
-* Merge pull request [#48](https://github.com/t4d-gmbh/stubbed_versioning/issues/48) from t4d-gmbh/47-deleting-the-release-branch-on-merge-crashes-the-publish_version-action
+* ... _irrelevant PR's for debugging_
 * Merge pull request [#46](https://github.com/t4d-gmbh/stubbed_versioning/issues/46) from t4d-gmbh/release-0.6.0
 * Merge pull request [#45](https://github.com/t4d-gmbh/stubbed_versioning/issues/45) from t4d-gmbh/40-better-infor-for-the-release
 
