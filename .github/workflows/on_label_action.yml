@@ -49,7 +49,6 @@ jobs:
         run: echo Hello, world!
       - name: Updating the label accordingly
         run: |
-          echo "$GITHUB_CONTEXT"
           gh pr edit $EVENT_URL --remove-label ${{ env.LABEL_CHECK }}
           if [ ${{ steps.some_task.outcome }} == "success" ]; then
             gh pr edit $EVENT_URL --remove-label ${{ env.LABEL_CHECK }}
@@ -66,4 +65,3 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EVENT_URL: ${{ github.event.html_url }}  # This is either the issue or pr
-          GITHUB_CONTEXT: ${{ toJson(github) }}
