@@ -1,4 +1,18 @@
 
+<a name="0.5.0"></a>
+## [0.5.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.4.0...0.5.0)
+
+> 2024-05-07
+
+### Feature
+
+* on-demand checks via label ([#41](https://github.com/t4d-gmbh/stubbed_versioning/issues/41))
+
+### Fix
+
+* only run publish action on pr for release- branches ([#42](https://github.com/t4d-gmbh/stubbed_versioning/issues/42))
+
+
 <a name="0.4.0"></a>
 ## [0.4.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.3.3...0.4.0)
 
