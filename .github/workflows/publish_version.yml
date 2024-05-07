@@ -25,7 +25,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "github_actions"
-          git tag -a ${{ steps.release_version.outputs.version }} -m 'Published Version'
+          git tag -a ${{ steps.release_version.outputs.version }} -f -m 'Published Version'
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
