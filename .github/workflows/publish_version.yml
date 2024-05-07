@@ -8,14 +8,14 @@ on:
 jobs:
   release-version:
     # if: ${{ github.event.pull_request.merged && startsWith(github.head_ref, 'release-') }}
-    if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}  # TODO: remove in fovour of the above
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Get the head ref sha
         run: |
-          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`"
+          echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`"  # TODO: remove
           echo "HEAD_SHA=`echo $(gh pr view ${{ EVENT }} --json='headRefOid' --jq='.[]')`" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +50,6 @@ jobs:
         with:
           commit: ${{ steps.get_head.outputs.head_sha}}  # NOTE: Asserts to not create release from main
           tag: ${{ steps.release_version.outputs.version }}
-
-          # bodyFile: "body.md"
+          bodyFile: "body.md"
           body: |
             Release of version ${{ steps.release_version.outputs.version }}
