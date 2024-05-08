@@ -29,7 +29,9 @@ jobs:
         run: |
           if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }}"; then
             # removing previous release along with associated tag
-            gh release delete ${{ steps.release_version.outputs.version }} --cleanup-tag -y
+            gh release delete ${{ steps.release_version.outputs.version }} \
+              --cleanup-tag -y \
+              --repo ${{ env.OWNER }}/${{ env.REPO }}
           else
             # non-exist
             echo "No trace of a previous release."
