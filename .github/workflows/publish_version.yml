@@ -6,7 +6,7 @@ on:
     # types:
     #   - closed
     branches:
-      - "75-avoid-pushing-the-tag-to-main"
+      - "main"
 
 jobs:
   release-version:
