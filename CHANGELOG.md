@@ -6,7 +6,7 @@
 
 ### Feature
 
-* switching to usage of gh cli for releaseing ([#83](https://github.com/t4d-gmbh/stubbed_versioning/issues/83))
+* switching to usage of gh cli for releaseing ([#83](https://github.com/t4d-gmbh/stubbed_versioning/issues/83) + [#85](https://github.com/t4d-gmbh/stubbed_versioning/issues/85))
 
 ### Fix
 
