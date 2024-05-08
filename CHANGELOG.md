@@ -17,39 +17,7 @@
 ### Pull Requests
 
 * Merge pull request [#80](https://github.com/t4d-gmbh/stubbed_versioning/issues/80) from t4d-gmbh/75-avoid-pushing-the-tag-to-main
-* Merge pull request [#79](https://github.com/t4d-gmbh/stubbed_versioning/issues/79) from t4d-gmbh/release-0.6.4
-* Merge pull request [#78](https://github.com/t4d-gmbh/stubbed_versioning/issues/78) from t4d-gmbh/release-0.6.4
-* Merge pull request [#77](https://github.com/t4d-gmbh/stubbed_versioning/issues/77) from t4d-gmbh/75-avoid-pushing-the-tag-to-main
-* Merge pull request [#74](https://github.com/t4d-gmbh/stubbed_versioning/issues/74) from t4d-gmbh/release-0.6.4
-* Merge pull request [#73](https://github.com/t4d-gmbh/stubbed_versioning/issues/73) from t4d-gmbh/71-allow-to-overwrite-existing-clean-tags
-* Merge pull request [#70](https://github.com/t4d-gmbh/stubbed_versioning/issues/70) from t4d-gmbh/release-0.6.4
-* Merge pull request [#64](https://github.com/t4d-gmbh/stubbed_versioning/issues/64) from t4d-gmbh/63-release-notice-is-still-empty
-* Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
-
-
-<a name="0.6.4"></a>
-## [0.6.4](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.3...0.6.4)
-
-> 2024-05-08
-
-### Fix
-
-* we need to actually set the option
-* allow to push tags without branch
-* allow to push tags without branch
-* overwrite existing tags on runner (closes [#71](https://github.com/t4d-gmbh/stubbed_versioning/issues/71))
-* notice about branch protection ([#69](https://github.com/t4d-gmbh/stubbed_versioning/issues/69))
-* create release notice from changelog ([#66](https://github.com/t4d-gmbh/stubbed_versioning/issues/66))
-* target diff to previous version
-
-### Pull Requests
-
-* Merge pull request [#78](https://github.com/t4d-gmbh/stubbed_versioning/issues/78) from t4d-gmbh/release-0.6.4
-* Merge pull request [#77](https://github.com/t4d-gmbh/stubbed_versioning/issues/77) from t4d-gmbh/75-avoid-pushing-the-tag-to-main
-* Merge pull request [#74](https://github.com/t4d-gmbh/stubbed_versioning/issues/74) from t4d-gmbh/release-0.6.4
-* Merge pull request [#73](https://github.com/t4d-gmbh/stubbed_versioning/issues/73) from t4d-gmbh/71-allow-to-overwrite-existing-clean-tags
-* Merge pull request [#70](https://github.com/t4d-gmbh/stubbed_versioning/issues/70) from t4d-gmbh/release-0.6.4
-* Merge pull request [#64](https://github.com/t4d-gmbh/stubbed_versioning/issues/64) from t4d-gmbh/63-release-notice-is-still-empty
+* ... _multiple PR for debugging_
 * Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
 
 
