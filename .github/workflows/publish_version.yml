@@ -27,7 +27,8 @@ jobs:
           git config user.name "github_actions"
           git tag -a ${{ steps.release_version.outputs.version }} -f -m 'Published Version'
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ZPascal/github-push-action@ea1826ce31abfcaf57fb5d0c4d070c386cb67bdf
+        # NOTE: switch back to ad-m once merged (see #76)
         with:
           # branch: ${{ github.head_ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
