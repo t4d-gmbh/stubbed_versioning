@@ -31,6 +31,7 @@ jobs:
         # NOTE: switch back to ad-m once merged (see #76)
         with:
           # branch: ${{ github.head_ref }}
+          push_only_tags: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
           tags: true
