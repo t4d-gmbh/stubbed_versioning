@@ -27,7 +27,7 @@ jobs:
           git config user.name "github_actions"
           git tag -a ${{ steps.release_version.outputs.version }} -f -m 'Published Version'
       - name: Push changes
-        uses: ad-m/github-push-action@v4
+        uses: ad-m/github-push-action@v0.8.0
         with:
           branch: ${{ github.head_ref }}  # NOTE: this we re-introduce the source branch if it was deleted
           github_token: ${{ secrets.GITHUB_TOKEN }}
