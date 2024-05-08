@@ -36,7 +36,6 @@ jobs:
             # non-exist
             echo "No trace of a previous release."
           fi
-          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
       - name: Prepare Release note
         # this gets the first the changes to the previous clean tag (including manual edits)
         run: |
@@ -46,7 +45,7 @@ jobs:
           gh release create ${{ steps.release_version.outputs.version }} \
             --target ${{ github.event.pull_request.head.sha }} \
             --latest \
-            --title "${{ }}" \
+            --title "${{ steps.release_version.outputs.version }}" \
             --notes-file body.md \
             --repo ${{ env.OWNER }}/${{ env.REPO }}
       # - name: Upload additional artifacts to the release
