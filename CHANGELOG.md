@@ -2,13 +2,16 @@
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.3...0.6.4)
 
-> 2024-05-08
+> 2024-05-09
+
+### Feature
+
+* switching to usage of gh cli for releaseing ([#83](https://github.com/t4d-gmbh/stubbed_versioning/issues/83))
 
 ### Fix
 
 * using wrong version for push action
 * we need to actually set the option
-* allow to push tags without branch
 * allow to push tags without branch
 * overwrite existing tags on runner (closes [#71](https://github.com/t4d-gmbh/stubbed_versioning/issues/71))
 * notice about branch protection ([#69](https://github.com/t4d-gmbh/stubbed_versioning/issues/69))
@@ -17,9 +20,8 @@
 
 ### Pull Requests
 
-* Merge pull request [#81](https://github.com/t4d-gmbh/stubbed_versioning/issues/81) from t4d-gmbh/release-0.6.4
-* Merge pull request [#80](https://github.com/t4d-gmbh/stubbed_versioning/issues/80) from t4d-gmbh/75-avoid-pushing-the-tag-to-main
-* ... _multiple PR for debugging_
+* Merge pull request [#82](https://github.com/t4d-gmbh/stubbed_versioning/issues/82) from t4d-gmbh/release-0.6.4
+* ..._many trial pull requests_
 * Merge pull request [#61](https://github.com/t4d-gmbh/stubbed_versioning/issues/61) from t4d-gmbh/60-cleaning-up-release-workflow
 
 
