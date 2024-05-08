@@ -2,15 +2,12 @@ name: Publish a version
 
 on:
   pull_request:
-    # TODO: switch back
-    # types:
-    #   - closed
-    branches:
-      - "main"
+    types:
+      - closed
 
 jobs:
   release-version:
-    # if: ${{ github.event.pull_request.merged && startsWith(github.head_ref, 'release-') }}
+    if: ${{ github.event.pull_request.merged && startsWith(github.head_ref, 'release-') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,9 +23,7 @@ jobs:
         id: release_version
         run: |
           git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
-          # TODO: switch back
-          # echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
-          echo "VERSION=0.6.4" >> $GITHUB_OUTPUT
+          echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
           echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
       - name: Remove previous releases of the target tag, if existing
         run: |
