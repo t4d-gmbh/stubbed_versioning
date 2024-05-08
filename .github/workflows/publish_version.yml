@@ -41,7 +41,6 @@ jobs:
             # non-exist
             echo "No trace of a previous release."
           fi
-          gh label create ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
       - name: Prepare Release note
         # this gets the first the changes to the previous clean tag (including manual edits)
         run: |
