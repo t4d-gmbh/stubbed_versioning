@@ -10,7 +10,7 @@ env:
 
 
 jobs:
-  development checks:
+  development_checks:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
@@ -28,7 +28,8 @@ jobs:
       - name: Determine associated Pull request
         id: get_pr
         run: |
-          echo "PR=$(gh pr list --json 'number,headRefName' --jq '.[] | select(.headRefName | contains("${{ GITHUB_SHA}}")) | .number')" >> $GITHUB_OUTPUT
+          echo $(gh pr list --json 'number,headRefName' --jq '.[] | select(.headRefName | contains("$GITHUB_SHA")) | .number')
+          echo "PR=`echo $(gh pr list --json 'number,headRefName' --jq '.[] | select(.headRefName | contains("$GITHUB_SHA")) | .number')`" >> $GITHUB_OUTPUT
           # TODO: remove this is for debugging
           cat $GITHUB_OUTPUT
       - name: Check if the pull request is labeled with ${{ env.LABEL_PUBLISHED }}  # 2
