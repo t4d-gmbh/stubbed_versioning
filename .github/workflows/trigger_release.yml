@@ -31,8 +31,10 @@ jobs:
       - name: Determine associated Pull request
         id: get_pr
         run: |
+          gh pr list --json 'number,headRefName'
           echo "PR=`echo $(gh pr list --json 'number,headRefName'|jq --arg NAME $github.ref_name '.[] | select(.headRefName | contains($NAME)) | .number')`" >> $GITHUB_OUTPUT
           # TODO: remove this is for debugging
+          cat $GITHUB_OUTPUT
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.get_pr.outputs.pr }}
         run: |
