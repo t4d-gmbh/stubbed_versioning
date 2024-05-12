@@ -1,4 +1,14 @@
 
+<a name="0.7.2"></a>
+## [0.7.2](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.1...0.7.2)
+
+> 2024-05-12
+
+### Fix
+
+* release command was split
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.1)
 
