@@ -63,12 +63,12 @@ jobs:
           awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.previous_version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
       - name: Create tag and release
         if: ${{ steps.published.outputs.labeled == 'false' }}
-        run: >
-          gh release create ${{ steps.release_version.outputs.version }}
-            --target ${{ github.event.pull_request.head.sha }}
-            --latest
-            --title "${{ steps.release_version.outputs.version }}"
-            --notes-file body.md
+        run: |
+          gh release create ${{ steps.release_version.outputs.version }} \
+            --target ${{ github.event.pull_request.head.sha }} \
+            --latest \
+            --title "${{ steps.release_version.outputs.version }}" \
+            --notes-file body.md \
             --repo ${{ env.OWNER }}/${{ env.REPO }}
       - name: Adding the label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.published.outputs.labeled == 'false' }}
