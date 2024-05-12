@@ -1,4 +1,14 @@
 
+<a name="0.7.0"></a>
+## [0.7.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.0)
+
+> 2024-05-12
+
+### Feature
+
+* allow to trigger release before merging pr ([#89](https://github.com/t4d-gmbh/stubbed_versioning/issues/89))
+
+
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.3...0.6.4)
 
