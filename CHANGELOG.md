@@ -1,4 +1,19 @@
 
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.1)
+
+> 2024-05-12
+
+### Feature
+
+* allow to trigger release before merging pr ([#89](https://github.com/t4d-gmbh/stubbed_versioning/issues/89))
+
+### Fix
+
+* syntax error in condition
+* Check label of pull request ([#91](https://github.com/t4d-gmbh/stubbed_versioning/issues/91)) ([#92](https://github.com/t4d-gmbh/stubbed_versioning/issues/92))
+
+
 <a name="0.7.0"></a>
 ## [0.7.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.0)
 
