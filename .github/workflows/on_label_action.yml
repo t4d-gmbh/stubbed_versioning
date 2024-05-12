@@ -41,6 +41,10 @@ jobs:
     needs:
       - check_label_exist
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,21 +56,21 @@ jobs:
           echo Hello, world!
       - name: Check if on demand taks succeeded
         run: |
-          gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
+          gh pr edit ${{ env.EVENT }} --remove-label ${{ env.LABEL_CHECK }}
           if [ ${{ steps.some_task.outcome }} == "success" ]; then
-            gh pr edit $EVENT --remove-label ${{ env.LABEL_CHECK }}
-            gh pr edit $EVENT --add-label ${{ env.LABEL_SUCCESS }}
+            gh pr edit ${{ env.EVENT }} --remove-label ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+            gh pr edit ${{ env.EVENT }} --add-label ${{ env.LABEL_SUCCESS }} --repo ${{ env.OWNER }}/${{ env.REPO }}
             echo "### ${{ github.event.label.url }} passed! :rocket:" >> $GITHUB_STEP_SUMMARY
             exit 0
           elif [ ${{ steps.some_task.outcome }} == "failure" ]; then
-            gh pr edit $EVENT --add-label ${{ env.LABEL_FAILURE }}
+            gh pr edit ${{ env.EVENT  }} --add-label ${{ env.LABEL_FAILURE }} --repo ${{ env.OWNER }}/${{ env.REPO }}
             echo "### ${{ github.event.label.url }} failed!" >> $GITHUB_STEP_SUMMARY
             exit 1
           else
-            gh pr edit $EVENT --add-label ${{ env.LABEL_CHECK }}
+            gh pr edit ${{ env.EVENT }} --add-label ${{ env.LABEL_CHECK }} --repo ${{ env.OWNER }}/${{ env.REPO }}
             echo "On demand task outcome was ${{ steps.some_task.outcome }}"
           fi
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EVENT: ${{ github.event.html_url }}  # This is either the issue or pr
+          EVENT: ${{ github.event.number }}  # This is either the issue or pr
