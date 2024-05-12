@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
+      repository-projects: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       OWNER: ${{ github.repository_owner }}
@@ -73,8 +75,7 @@ jobs:
       - name: Adding the label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
-          gh pr edit ${{ env.EVENT }} --add-label ${{ env.LABEL_PUBLISHED }} \
-            --repo ${{ env.OWNER }}/${{ env.REPO }}
+          gh pr edit ${{ env.EVENT }} --add-label ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
         shell: bash
       # - name: Upload additional artifacts to the release
       #   run: |
