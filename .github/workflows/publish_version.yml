@@ -57,7 +57,7 @@ jobs:
             echo "No trace of a previous release."
           fi
       - name: Prepare Release note
-        if: ${{ steps.published.outputs.labeled = 'false' }}
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         # this gets the first the changes to the previous clean tag (including manual edits)
         run: |
           awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.previous_version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
