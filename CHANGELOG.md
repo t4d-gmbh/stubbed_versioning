@@ -1,4 +1,10 @@
 
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.5...0.7.6)
+
+> 2024-05-12
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.4...0.7.5)
 
