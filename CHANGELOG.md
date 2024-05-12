@@ -1,4 +1,18 @@
 
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.6...0.7.7)
+
+> 2024-05-12
+
+### Fix
+
+* permissions for pr edits
+
+### Pull Requests
+
+* Merge pull request [#100](https://github.com/t4d-gmbh/stubbed_versioning/issues/100) from t4d-gmbh/release-0.7.6
+
+
 <a name="0.7.6"></a>
 ## [0.7.6](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.5...0.7.6)
 
