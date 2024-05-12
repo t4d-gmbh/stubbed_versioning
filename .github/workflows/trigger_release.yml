@@ -37,6 +37,7 @@ jobs:
         if: steps.get_pr.outputs.pr
         run: |
           gh label create ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+        continue-on-error: true  # make sure the next steps run also on failure
       - name: Check if the pull request is labeled with ${{ env.LABEL_PUBLISHED }}  # 2
         if: steps.get_pr.outputs.pr
         id: published

@@ -25,6 +25,7 @@ jobs:
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
         run: |
           gh label create ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+        continue-on-error: true  # make sure the next steps run also on failure
       - name: Determine associated Pull request
         id: get_pr
         run: |
