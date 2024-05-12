@@ -27,7 +27,7 @@ jobs:
       - name: Check if the pull request is labeled with ${{ env.LABEL_PUBLISHED }}
         id: published
         run: |
-          if $( gh pr view $EVENT --repo ${{ env.OWNER }}/${{ env.REPO }} --json "labels" --jq ".[].[].name" | grep --quiet ${{ env.LABEL_PUBLISHED }}); then
+          if $( gh pr view ${{ env.EVENT }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json "labels" --jq ".[].[].name" | grep --quiet ${{ env.LABEL_PUBLISHED }}); then
             echo "LABELED=true" >> $GITHUB_OUTPUT
           else
             echo "LABELED=false" >> $GITHUB_OUTPUT
@@ -73,7 +73,7 @@ jobs:
       - name: Adding the label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
-          gh pr edit $EVENT --add-label ${{ env.LABEL_PUBLISHED }} \
+          gh pr edit ${{ env.EVENT }} --add-label ${{ env.LABEL_PUBLISHED }} \
             --repo ${{ env.OWNER }}/${{ env.REPO }}
         shell: bash
       # - name: Upload additional artifacts to the release
