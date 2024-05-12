@@ -33,7 +33,6 @@ jobs:
         run: |
           echo "PR=`echo $(gh pr list --json 'number,headRefName'|jq --arg NAME $github.ref_name '.[] | select(.headRefName | contains($NAME)) | .number')`" >> $GITHUB_OUTPUT
           # TODO: remove this is for debugging
-          cat $GITHUB_OUTPUT
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.get_pr.outputs.pr }}
         run: |
@@ -56,7 +55,7 @@ jobs:
           echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
           echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
       - name: Remove previous releases of the target tag, if existing  # 2
-        if: ${{ (steps.published.outputs.labeled == 'false'} && steps.get_pr.outputs.pr }}
+        if: ${{ (steps.published.outputs.labeled == 'false') && steps.get_pr.outputs.pr }}
         run: |
           if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }}"; then
             # removing previous release along with associated tag
@@ -74,13 +73,14 @@ jobs:
           awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.previous_version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
       - name: Create tag and release  # 2
         if: ${{ (steps.published.outputs.labeled == 'false') && steps.get_pr.outputs.pr }}
-        run: >
-          gh release create ${{ steps.release_version.outputs.version }}
-            --target ${{ GITHUB_SHA}}
-            --latest
-            --title "${{ steps.release_version.outputs.version }}"
-            --notes-file body.md
-            --repo ${{ env.OWNER }}/${{ env.REPO }}
+        run: |
+          echo $GITHUB_SHA 
+          gh release create ${{ steps.release_version.outputs.version }} \
+            --target $GITHUB_SHA \
+            --latest \
+            --title "${{ steps.release_version.outputs.version }}" \
+            --notes-file body.md \
+            --repo ${{ env.OWNER }}/${{ env.REPO }} \
       - name: Adding the label ${{ env.LABEL_PUBLISHED }}  # 2
         if: ${{ (steps.published.outputs.labeled == 'false') && steps.get_pr.outputs.pr }}
         run: |
