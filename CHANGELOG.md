@@ -1,4 +1,18 @@
 
+<a name="0.7.8"></a>
+## [0.7.8](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.7...0.7.8)
+
+> 2024-05-12
+
+### Fix
+
+* enforce release only with clean tag
+
+### Pull Requests
+
+* Merge pull request [#101](https://github.com/t4d-gmbh/stubbed_versioning/issues/101) from t4d-gmbh/release-0.7.7
+
+
 <a name="0.7.7"></a>
 ## [0.7.7](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.6...0.7.7)
 
