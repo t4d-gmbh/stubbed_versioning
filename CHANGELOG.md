@@ -1,4 +1,18 @@
 
+<a name="0.7.3"></a>
+## [0.7.3](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.2...0.7.3)
+
+> 2024-05-12
+
+### Fix
+
+* event is not picked up
+
+### Pull Requests
+
+* Merge pull request [#95](https://github.com/t4d-gmbh/stubbed_versioning/issues/95) from t4d-gmbh/release-0.7.2
+
+
 <a name="0.7.2"></a>
 ## [0.7.2](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.1...0.7.2)
 
