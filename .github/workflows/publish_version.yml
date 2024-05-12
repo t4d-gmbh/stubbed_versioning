@@ -24,7 +24,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       # check if the pr is labeled as published already
-      - name: Check if the version is labeled with ${{ env.LABEL_PUBLISHED }}
+      - name: Check if the pull request is labeled with ${{ env.LABEL_PUBLISHED }}
         id: published
         run: |
           if $( gh pr view $EVENT --json "labels" --jq ".[].[].name" | grep --quiet ${{ env.LABEL_PUBLISHED }}); then
