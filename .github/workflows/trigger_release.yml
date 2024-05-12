@@ -1,0 +1,86 @@
+name: Enforce release from release- branch
+
+on:
+  push:
+    tags:
+      # The tag name needs to be of the form <nbr>.<nbr>.<nbr>
+      - "^[0-9]+.[0-9]+.[0-9]+$"
+
+env:
+  LABEL_PUBLISHED: 'release::published'
+
+jobs:
+  publishing_release:
+    # NOTE: Currently this workflow only runs if a release- branch has an open pull request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # NOTE: This might be needed to assert that we get the full history
+                          #       for the changelog.
+      # get the related pull request
+      - name: Determine associated Pull request
+        id: get_pr
+        run: |
+          echo "PR=$(gh pr list --json 'number,headRefName' --jq '.[] | select(.headRefName | contains("${{ GITHUB_SHA}}")) | .number')" >> $GITHUB_OUTPUT
+          # TODO: remove this is for debugging
+          cat $GITHUB_OUTPUT
+      - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
+        if: steps.get_pr.outputs.pr
+        run: |
+          gh label create ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
+      - name: Check if the version is labeled with ${{ env.LABEL_PUBLISHED }}  # 2
+        if: steps.get_pr.outputs.pr
+        id: published
+        run: |
+          if $( gh pr view ${{ steps.get_pr.outputs.pr }} --repo ${{ env.OWNER }}/${{ env.REPO }} --json "labels" --jq ".[].[].name" | grep --quiet ${{ env.LABEL_PUBLISHED }}); then
+            echo "LABELED=true" >> $GITHUB_OUTPUT
+          else
+            echo "LABELED=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Get the version to release  # 2
+        if: ${{ steps.published.outputs.labeled == "false" && steps.get_pr.output.pr }}
+        id: release_version
+        run: |
+          git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
+          echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
+          echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
+      - name: Remove previous releases of the target tag, if existing  # 2
+        if: ${{ steps.published.outputs.labeled == "false" && steps.get_pr.output.pr }}
+        run: |
+          if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }}"; then
+            # removing previous release along with associated tag
+            gh release delete ${{ steps.release_version.outputs.version }} \
+              --cleanup-tag -y \
+              --repo ${{ env.OWNER }}/${{ env.REPO }}
+          else
+            # non-exist
+            echo "No trace of a previous release."
+          fi
+      - name: Prepare Release note  # 2
+        if: ${{ steps.published.outputs.labeled == "false" && steps.get_pr.output.pr }}
+        # this gets the first the changes to the previous clean tag (including manual edits)
+        run: |
+          awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.previous_version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
+      - name: Create tag and release  # 2
+        if: ${{ steps.published.outputs.labeled == "false" && steps.get_pr.output.pr }}
+        run: >
+          gh release create ${{ steps.release_version.outputs.version }}
+            --target ${{ GITHUB_SHA}}
+            --latest
+            --title "${{ steps.release_version.outputs.version }}"
+            --notes-file body.md
+            --repo ${{ env.OWNER }}/${{ env.REPO }}
+      - name: Adding the label ${{ env.LABEL_PUBLISHED }}  # 2
+        if: ${{ steps.published.outputs.labeled == "false" && steps.get_pr.output.pr }}
+        run: |
+          gh pr edit ${{ steps.get_pr.outputs.pr }} --add-label ${{ env.LABEL_PUBLISHED }}
+        shell: bash
