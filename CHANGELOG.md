@@ -1,4 +1,16 @@
 
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.5...0.7.6)
+
+> 2024-05-12
+
+With this version it is possible to publish a version before the associated Pull request is merged.
+This is to avoid having to resolve merge conflicts before publishing and should be avoided whenever possible.
+
+To release a version pre-merge of the corresponding `release-x.x.x` branch simply tag the commit you want to
+relese with the clean targe version.
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.4...0.7.5)
 
