@@ -24,8 +24,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       # check if the pr is labeled as published already
-      - name: Check if the version is labeled with ${{ env.LABEL_PUBLISHED }}
-        id: check_published
+      - name: Check if the pull request is labeled with ${{ env.LABEL_PUBLISHED }}
+        id: published
         run: |
           if $( gh pr view $EVENT --json "labels" --jq ".[].[].name" | grep --quiet ${{ env.LABEL_PUBLISHED }}); then
             echo "LABELED=true" >> $GITHUB_OUTPUT
@@ -33,19 +33,19 @@ jobs:
             echo "LABELED=false" >> $GITHUB_OUTPUT
           fi
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
           gh label create ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
         continue-on-error: true  # make sure the next steps run also on failure
       - name: Get the version to release
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         id: release_version
         run: |
           git fetch --filter=tree:0 origin +refs/tags/*:refs/tags/*
           echo "VERSION=$(echo ${{ github.head_ref }}|grep -Eo '[0-9]+.[0-9]+.[0-9]+')" >> $GITHUB_OUTPUT
           echo "PREVIOUS_VERSION=`echo $(git tag --list | grep -E '[0-9]+.[0-9]+.[0-9]+$' | tail -n1)`" >> $GITHUB_OUTPUT
       - name: Remove previous releases of the target tag, if existing
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
           if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }}"; then
             # removing previous release along with associated tag
@@ -57,12 +57,12 @@ jobs:
             echo "No trace of a previous release."
           fi
       - name: Prepare Release note
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled = 'false' }}
         # this gets the first the changes to the previous clean tag (including manual edits)
         run: |
           awk '/<a name="${{ steps.release_version.outputs.version }}".*/{a=1};a;/<a name="${{ steps.release_version.outputs.previous_version }}"*/{exit}' CHANGELOG.md | head -n -1 >> body.md
       - name: Create tag and release
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         run: >
           gh release create ${{ steps.release_version.outputs.version }}
             --target ${{ github.event.pull_request.head.sha }}
@@ -71,7 +71,7 @@ jobs:
             --notes-file body.md
             --repo ${{ env.OWNER }}/${{ env.REPO }}
       - name: Adding the label ${{ env.LABEL_PUBLISHED }}
-        if: steps.check_published.outputs.labeled == "false"
+        if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
           gh pr edit $EVENT --add-label ${{ env.LABEL_PUBLISHED }}
         shell: bash
