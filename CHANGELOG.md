@@ -1,4 +1,13 @@
 
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.1)
+
+> 2024-05-12
+
+### Fix
+
+* syntax error in condition
+
 <a name="0.7.0"></a>
 ## [0.7.0](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.6.4...0.7.0)
 
