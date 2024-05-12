@@ -35,8 +35,7 @@ jobs:
             echo "TO_PUBLISH=1" >> $GITHUB_OUTPUT
           fi
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
-        needs: published
-        if: needs.published.outputs.to_publish
+        if: steps.published.outputs.to_publish
         run: |
           gh label create ${{ env.LABEL_PUBLISHED }} --repo ${{ env.OWNER }}/${{ env.REPO }}
         continue-on-error: true  # make sure the next steps run also on failure
