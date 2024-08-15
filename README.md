@@ -5,7 +5,7 @@ This project contains an exemplary setup for a version release pipeline that ful
 1. Adheres to versioning standards - [semver](semver.org) in this case
 1. Use [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) as single source of
    truth for the versioning
-1. Allow to include information about the version in the code-base itself
+1. Allow to include information about the version in the code-base itself (e.g the [CHANGELOG.md](./CHANGELOG.md) file).
 1. Allow to run and address resulting issues of designated pre-release tests (and potentially other workflows)
 1. Include the released state of the repository in the reference branch
 
