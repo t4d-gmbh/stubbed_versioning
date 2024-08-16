@@ -1,4 +1,18 @@
 
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.8...0.8.1)
+
+> 2024-08-16
+
+### Feature
+
+* Auto-update batch uri ([#107](https://github.com/t4d-gmbh/stubbed_versioning/issues/107))
+
+### Fix
+
+* workflow formatting (hotfix)
+
+
 <a name="0.7.8"></a>
 ## [0.7.8](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.7...0.7.8)
 
