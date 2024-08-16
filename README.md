@@ -1,5 +1,7 @@
 # Stubbed Versioning
 
+ [![Publish latest version](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml/badge.svg?branch=release-0.7.8)](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml) 
+
 This project contains an exemplary setup for a version release pipeline that fulfills the following requirements:
 
 1. Adheres to versioning standards - [semver](semver.org) in this case

@@ -1,4 +1,4 @@
-name: Publish a version
+name: Publish latest version
 
 on:
   pull_request:
