@@ -55,6 +55,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           add-paths: |
             CHANGELOG.md
+            README.md
           delete-branch: true  # NOTE: No immediate delete after merge, instead branches with no diff are deleted
           title: Release version ${{ steps.release_version.outputs.version }}
           body: |
