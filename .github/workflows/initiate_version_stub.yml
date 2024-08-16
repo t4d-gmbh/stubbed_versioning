@@ -21,6 +21,7 @@ jobs:
       with:
         fetch-depth: 0  # NOTE: This might be needed to assert that we get the full history
                         #       for the changelog.
+
     - name: Register desired version
       id: release_version
       run: |
@@ -40,6 +41,12 @@ jobs:
         # now we substitute the clean tag
         sed -i -e "s/${{ github.ref_name }}/${{ steps.release_version.outputs.version}}/g" CHANGELOG.md
         rm git-chglog
+
+     - name: Update status badges in the readme file
+       run: |
+         # updated the branch parameter for all badges
+         sed -i -e "s/?branch=release-[0-9]\+.[0-9]\.[0-9]\+/?branch=release-${{ steps.release_version.outputs.version}}/g" README.md
+
     - name: Create version release Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
