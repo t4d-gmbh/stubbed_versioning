@@ -8,18 +8,9 @@
 
 * Auto-update batch uri ([#107](https://github.com/t4d-gmbh/stubbed_versioning/issues/107))
 
-### Feature
-
-* Auto-update uri of release badges
-
 ### Fix
 
-* workflow formatting
-
-### Pull Requests
-
-* Merge pull request [#104](https://github.com/t4d-gmbh/stubbed_versioning/issues/104) from t4d-gmbh/103-sorting-of-the-tags-to-set-the-previous_version-is-lexicographic
-* Merge pull request [#102](https://github.com/t4d-gmbh/stubbed_versioning/issues/102) from t4d-gmbh/release-0.7.8
+* workflow formatting (hotfix)
 
 
 <a name="0.7.8"></a>
