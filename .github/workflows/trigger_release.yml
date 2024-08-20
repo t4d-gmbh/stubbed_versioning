@@ -30,7 +30,7 @@ jobs:
       - name: Determine associated Pull request
         id: get_pr
         run: |
-          echo "PR=`echo $(gh pr list --json 'number,headRefName'|jq --arg NAME ${{ github.ref_name }} '.[] | select(.headRefName | contains($NAME)) | .number')`" >> $GITHUB_OUTPUT
+          echo "PR=`echo $(gh pr list --repo ${{ env.OWNER }}/${{ env.REPO }} --json 'number,headRefName'|jq --arg NAME ${{ github.ref_name }} '.[] | select(.headRefName | contains($NAME)) | .number')`" >> $GITHUB_OUTPUT
       - name: Attempt to create label ${{ env.LABEL_PUBLISHED }}
         if: ${{ steps.get_pr.outputs.pr }}
         run: |
