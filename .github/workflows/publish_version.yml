@@ -49,7 +49,7 @@ jobs:
       - name: Remove previous releases of the target tag, if existing
         if: ${{ steps.published.outputs.labeled == 'false' }}
         run: |
-          if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }}"; then
+          if script -q -e -c "gh release view ${{ steps.release_version.outputs.version }} --repo ${{ env.OWNER }}/${{ env.REPO }}"; then
             # removing previous release along with associated tag
             gh release delete ${{ steps.release_version.outputs.version }} \
               --cleanup-tag -y \
