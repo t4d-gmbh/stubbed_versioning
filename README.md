@@ -1,6 +1,6 @@
 # Stubbed Versioning
 
- [![Publish latest version](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml/badge.svg?branch=release-0.8.1)](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml) 
+ [![Publish latest version](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml/badge.svg?branch=release-0.8.2)](https://github.com/t4d-gmbh/stubbed_versioning/actions/workflows/publish_version.yml) 
 
 This project contains an exemplary setup for a version release pipeline that fulfills the following requirements:
 

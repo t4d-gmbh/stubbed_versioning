@@ -1,4 +1,18 @@
 
+<a name="0.8.2"></a>
+## [0.8.2](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.8.1...0.8.2)
+
+> 2024-08-20
+
+### Fix
+
+* tag author, not commit author
+
+### Pull Requests
+
+* Merge pull request [#109](https://github.com/t4d-gmbh/stubbed_versioning/issues/109) from t4d-gmbh/release-0.8.1
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](https://github.com/t4d-gmbh/stubbed_versioning/compare/0.7.8...0.8.1)
 
